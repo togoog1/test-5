@@ -1,10 +1,67 @@
 
-<input ng-model="controller.search"
+<input  placeholder="Find your car!"
+       ng-model="controller.search"
        ng-model-options="{debounce:1000}"
        ng-change="controller.fetch()" />
 
-<ul>
-    <li ng-repeat="car in controller.cars">
+
+
+  <ul>
+  <li ng-repeat="car in controller.cars">
         {{car.ShortDescription}}
     </li>
-</ul>
+  </ul>
+
+<!--drop down and adder-->
+ <b>Filter By Make</b> &nbsp;
+<select   ng-model="controller.selectedMake"
+          ng-change="controller.getMatchingMakes()"
+          ng-options="make.name for make in controller.makes"
+          ng-change="controller.getCars()">
+
+<option ng-repeat="M in controller.makes" value="{{M.id}}">{{M.name}}</option>
+
+        </select>
+
+
+
+
+<!--working on table-->
+          <table>
+              <tr ng-repeat="car in controller.cars">
+                  <td>
+                      <p >{{car.shortDescription}}</p>
+
+                  </td>
+                  <td>
+                      <img src="" ng-click="" />
+                  </td>
+              </tr>
+          </table>
+
+
+
+
+
+
+
+
+<!--
+<table cellspacing="3" cellpadding="3" ng-class="{highlight:doHilight }">
+    <tr ng-repeat="car in controller.cars|filter: {carMakeId:makeSelection.id,shortDescription:search}"
+        ng-class="{highlight:doHilight }"
+        ng-mouseenter="highlight=true"
+        ng-mouseleave="highlight=false">
+        <td>
+            <p style="font-weight:bold">{{car.shortDescription}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <!--<p>{{car.fullDescription}}</p>-->
+<!--
+        </td>
+        <td>
+            <img ng-src="{{car.imageUrl}}" ng-click="controller.showModal(car.id)" />
+        </td>
+        <td>
+            <img style="cursor:pointer" width="50" height="60" src="../../images/readmorebutton.png" ng-click="controller.showModal(car.id)" />
+        </td>
+    </tr>
+</table>

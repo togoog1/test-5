@@ -12,8 +12,36 @@ namespace myapp.Services {
         }
     }
     angular.module('myapp').service('movieService', MovieService);
-    export class MyService {
 
+
+//new
+
+export class CarService {
+      public CarResource
+      public MakeResource
+
+      public getMatchingMakes(makeId) {
+        return this.CarResource.query({id: makeId});
+      }
+
+      public getAllMakes() {
+        return this.MakeResource.query();
+      }
+
+      public constructor(
+        public $resource
+      ) {
+
+        this.CarResource = $resource('/api/cars/:id');
+        this.MakeResource = $resource('/api/makes');
+      }
     }
-    angular.module('myapp').service('myService', MyService);
+
+
+
+
+
+//old
+
+    angular.module('myapp').service('carService', CarService);
     }

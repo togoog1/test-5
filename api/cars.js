@@ -61,6 +61,13 @@ router.get('/cars/:id', function (req, res, next) {
         res.sendStatus(404);
     }
 });
+router.get('/cars/search/:search', function (req, res, next) {
+    var search = req.params['search'];
+    var matches = cars.filter(function (car) {
+        return car.ShortDescription.indexOf(search) == 0;
+    });
+    res.json(matches);
+});
 function findCar(id) {
     var matches = cars.filter(function (car) {
         return car.id == id;

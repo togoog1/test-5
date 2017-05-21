@@ -64,6 +64,15 @@ router.get('/cars/:id', function (req, res, next) {
     }
 });
 
+/* find matching cars */
+router.get('/cars/search/:search', function(req, res, next) {
+    let search = req.params['search'];
+    let matches = cars.filter((car)=>{
+      return car.ShortDescription.indexOf(search) == 0;
+    });
+    res.json(matches);
+});
+
 function findCar(id:number) {
   let matches = cars.filter((car) => {
     return car.id == id;

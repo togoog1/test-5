@@ -13,12 +13,21 @@ var myapp;
         }());
         Services.MovieService = MovieService;
         angular.module('myapp').service('movieService', MovieService);
-        var MyService = (function () {
-            function MyService() {
+        var CarService = (function () {
+            function CarService($resource) {
+                this.$resource = $resource;
+                this.CarResource = $resource('/api/cars/:id');
+                this.MakeResource = $resource('/api/makes');
             }
-            return MyService;
+            CarService.prototype.getMatchingMakes = function (makeId) {
+                return this.CarResource.query({ id: makeId });
+            };
+            CarService.prototype.getAllMakes = function () {
+                return this.MakeResource.query();
+            };
+            return CarService;
         }());
-        Services.MyService = MyService;
-        angular.module('myapp').service('myService', MyService);
+        Services.CarService = CarService;
+        angular.module('myapp').service('carService', CarService);
     })(Services = myapp.Services || (myapp.Services = {}));
 })(myapp || (myapp = {}));
